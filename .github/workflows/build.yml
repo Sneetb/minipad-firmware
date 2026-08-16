@@ -1,4 +1,4 @@
-name: Build Minipad 2K Firmware
+name: Build Minipad 2H2D Firmware
 
 on:
   workflow_dispatch:
@@ -22,11 +22,11 @@ jobs:
       - name: Install PlatformIO
         run: python -m pip install --upgrade platformio
 
-      - name: Build 2-key Hall firmware
-        run: pio run -e minipad-2k-prod
+      - name: Build 2-Hall + 2-digital firmware
+        run: pio run -e minipad-2h2d-prod
 
       - name: Upload UF2
         uses: actions/upload-artifact@v4
         with:
-          name: minipad-2k-uf2
-          path: .pio/build/minipad-2k-prod/firmware.uf2
+          name: minipad-2h2d-uf2
+          path: .pio/build/minipad-2h2d-prod/firmware.uf2
