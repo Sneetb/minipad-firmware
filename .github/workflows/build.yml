@@ -1,0 +1,32 @@
+name: Build Minipad 2K Firmware
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install PlatformIO
+        run: python -m pip install --upgrade platformio
+
+      - name: Build 2-key Hall firmware
+        run: pio run -e minipad-2k-prod
+
+      - name: Upload UF2
+        uses: actions/upload-artifact@v4
+        with:
+          name: minipad-2k-uf2
+          path: .pio/build/minipad-2k-prod/firmware.uf2
